@@ -1,0 +1,72 @@
+<a href="" onclick="setup()">click</a>
+<script type="text/javascript">
+ 
+void setup(){
+  // basic settings
+  size(800, 600);
+  textAlign(CENTER);
+  background(255);
+  fill(0);
+ 
+  // load an image
+  src = loadImage("http:"+"//images.techtimes.com/data/images/full/161832/snoopy-dance.png");
+  // resize
+  src.resize(80, 60);
+ 
+ 
+  // load piyels of source-image
+  src.loadPixels();
+ 
+  // iterate over image-pixels
+  for(int i=0; i<src.pixels.length; i++ ){
+    // get the color
+    int col = src.pixels[i];
+ 
+    // draw a word if pixels is darker than threshold
+    if(brightness(col) < threshold){
+      int x = i%src.width * 10;
+      int y = i/src.width * 10 +10;
+      text("snoopy", x, y );
+    }
+  }
+  src.updatePixels();
+}
+
+
+
+
+</script>
+<script>
+  let c = document.createElement("canvas");
+
+  let img1 = new Image();
+  img1.crossOrigin = "anonymous";
+  img1.onload=function(){
+    document.getElementById("image1").remove();
+    w=img1.width;
+    h=img1.height;
+
+    c.width = w;
+    c.height = h;
+    ctx = c.getContext("2d");
+    ctx.drawImage(img1,0,0);
+
+    let pixelArr = ctx.getImageData(0, 0, w, h);
+    let sample_size = 20;
+
+    for (let y = 0; y < h; y += sample_size) {
+      for (let x = 0; x < w; x += sample_size) {
+        let p = (x + (y*w)) * 4;
+        ctx.fillStyle = "rgba(" + pixelArr[p] + "," + pixelArr[p + 1] + "," + pixelArr[p + 2] + ")";
+        ctx.fillRect(x, y, sample_size, sample_size);
+      }
+    }
+
+    let img2 = new Image();
+     //<-- set here
+    img2.src = c.toDataURL("image/jpeg");
+    img2.width = 700;
+    document.body.appendChild(img2);
+  }
+  img1.src=document.getElementById("image1").src;
+</script>
