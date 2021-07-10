@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="digital">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/dist/digital.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
